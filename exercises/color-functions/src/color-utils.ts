@@ -11,25 +11,12 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
 };
 
 export const rgbToHex = (r: number, g: number, b: number): string => {
-  let validR = Math.min(r, 255);
-  validR = Math.max(0, validR);
-  let validG = Math.min(g, 255);
-  validG = Math.max(0, validG);
-  let validB = Math.min(b, 255);
-  validB = Math.max(0, validB);
+  const validR = Math.max(0, Math.min(r, 255));
+  const validG = Math.max(0, Math.min(g, 255));
+  const validB = Math.max(0, Math.min(b, 255));
 
-  let hexR = validR.toString(16);
-  let hexG = validG.toString(16);
-  let hexB = validB.toString(16);
-
-  if (hexR.length === 1) {
-    hexR = `0${hexR}`;
-  }
-  if (hexG.length === 1) {
-    hexG = `0${hexG}`;
-  }
-  if (hexB.length === 1) {
-    hexB = `0${hexB}`;
-  }
-  return `${hexR}${hexG}${hexB}`;
+  return [validR, validG, validB]
+    .map(v => v.toString(16))
+    .map(v => (v.length === 1 ? `0${v}` : v))
+    .join("");
 };
