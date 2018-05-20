@@ -9,7 +9,10 @@ interface IStack<T> {
 export class Stack<T> implements IStack<T> {
   private stack: T[] = [];
 
-  public push(items: T | T[]): IStack<T> {
+  push(item: T): IStack<T>;
+  push(items: T[]): IStack<T>;
+
+  push(items: T | T[]): IStack<T> {
     if (Array.isArray(items)) {
       items.forEach(item => this.stack.push(item));
     } else {
@@ -18,18 +21,18 @@ export class Stack<T> implements IStack<T> {
     return this;
   }
 
-  public pop(): T | undefined {
+  pop(): T | undefined {
     if (this.length() > 0) {
       return this.stack.pop();
     }
     return undefined;
   }
 
-  public length(): number {
+  length(): number {
     return this.stack.length;
   }
 
-  public print(): void {
+  print(): void {
     console.log(JSON.stringify(this.stack));
   }
 }
